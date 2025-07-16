@@ -7,10 +7,23 @@
 </head>
 <body>
     <h1>This is a simple Django-powered file storage web app.</h1>
-    <p>Users will be able to upload files, view a list of uploaded files, and download them anytime. 
-    The project also includes pages like Home, About, and Contact to explain what the app does and how to get in touch.</p>
+    
+    {% if user.is_authenticated %}
+        <h2>Welcome, {{ user.username }}! You are logged in.</h2>
 
-    <button onclick="location.href='/register/'">Register for Account</button>
-    <button onclick="location.href='/login/'">Login to Account</button>
+        <button onclick="location.href='{% url 'logout' %}'">Logout of Account</button>
+
+
+        
+    {% else %}
+        <h2>Welcome, guest! Please log in or register.</h2>
+
+        <p>Users will be able to upload files, view a list of uploaded files, and download them anytime. 
+        The project also includes pages like Home, About, and Contact to explain what the app does and how to get in touch.</p>
+    
+                <button onclick="location.href='/register/'">Register for Account</button>
+        <button onclick="location.href='/login/'">Login to Account</button>
+    {% endif %}
+
 </body>
 </html>

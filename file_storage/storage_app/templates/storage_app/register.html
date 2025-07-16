@@ -8,7 +8,9 @@
 <body>
     <h1>Register for Account</h1>
 
-     <form action="/register" method="post">
+     <form action="{% url 'register' %}" method="post">
+         {% csrf_token %}
+     
       <label for="username">Username</label><br />
       <input type="text" id="username" name="username" required /><br />
 
@@ -19,8 +21,10 @@
       <input type="email" id="email" name="email" required /><br />
 
       <label for="phone">Phone Number</label><br />
-      <input type="phone" id="phone" name="phone" required /><br />
+      <input type="tel" id="phone" name="phone" required /><br />
 
       <button type="submit">Create Account</button>
+      </form>
+
 </body>
 </html>
