@@ -5,6 +5,11 @@ Sprint 6 Sites and Times
 1 hour page 1 setup
 2 hour login page setup
 1 hour register page setup
+1 hour file upload
+1 hour show user upload
+
+
+1 hour soft skills
 
 
 https://byui-cse.github.io/cse310-course/modules/module_descriptions.html
@@ -13,3 +18,4 @@ https://docs.djangoproject.com/en/5.2/intro/tutorial02/
 https://docs.djangoproject.com/en/5.2/intro/tutorial03/
 https://docs.djangoproject.com/en/5.2/topics/auth/default/
 https://docs.djangoproject.com/en/5.2/ref/contrib/auth/#django.contrib.auth.models.UserManager.create_user
+https://docs.djangoproject.com/en/5.2/topics/http/file-uploads/

@@ -13,6 +13,24 @@
 
         <button onclick="location.href='{% url 'logout' %}'">Logout of Account</button>
 
+        <button onclick="   location.href='{% url 'upload' %}'">Upload Files</button>
+
+        <h3 class="files">Previously uploaded files</h3>
+
+    <tr>
+        <th>Title</th>
+        <th>Uploaded By</th>
+        <th>File</th>
+        <th>Date</th>
+    </tr>
+    {% for f in files %}
+    <tr>
+        <td>{{ f.title }}</td>
+        <td>{{ f.user.username }}</td>
+        <td><a href="{{ f.file.url }}">Download</a></td>
+        <td>{{ f.uploaded_at }}</td>
+    </tr>
+    {% endfor %}
 
         
     {% else %}

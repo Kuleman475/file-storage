@@ -3,6 +3,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .models import  UploadedFile
+from .forms import UploadFileForm
+import os
+from django.conf import settings
+
 
 def index(request):
     return render(request, 'storage_app/index.html')
@@ -36,8 +41,7 @@ def register(request):
         
         # Create the user
        user = User.objects.create_user(username=username, password=password, email=email)
-        # (Optional) store phone somewhere; User model doesn’t have phone by default
-
+      
         # Log the user in
        login(request, user)
 
@@ -48,3 +52,30 @@ def register(request):
 def logout_view(request):
     logout(request)
     return redirect('index')
+
+
+def upload_view(request):
+    if request.method == "POST":
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            UploadedFile.objects.create(
+                user=request.user,
+                title=form.cleaned_data['title'],
+                file=form.cleaned_data['file']
+            )
+            messages.success(request, "File uploaded successfully.")
+            return redirect("upload")
+    else:
+        form = UploadFileForm()
+    return render(request, "storage_app/upload.html", {"form": form})
+    
+
+def handle_uploaded_file(f):
+    upload_dir = os.path.join(settings.MEDIA_ROOT, 'upload')
+    os.makedirs(upload_dir, exist_ok=True)
+
+    file_path = os.path.join(upload_dir, f.name) 
+
+    with open(file_path, "wb+") as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
