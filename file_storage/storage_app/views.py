@@ -22,7 +22,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect('index')  # or wherever you want to go after login
+            return redirect('index')
         else:
             messages.error(request, 'Invalid username or password.')
             return redirect('login')
