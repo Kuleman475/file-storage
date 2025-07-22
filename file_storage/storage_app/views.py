@@ -10,7 +10,8 @@ from django.conf import settings
 
 
 def index(request):
-    return render(request, 'storage_app/index.html')
+        files = UploadedFile.objects.all().order_by('-uploaded_at')
+        return render(request, 'storage_app/index.html', {'files': files})
 
 def login_view(request):
     if request.method == 'POST':
@@ -64,7 +65,7 @@ def upload_view(request):
                 file=form.cleaned_data['file']
             )
             messages.success(request, "File uploaded successfully.")
-            return redirect("upload")
+            return redirect("index")
     else:
         form = UploadFileForm()
     return render(request, "storage_app/upload.html", {"form": form})

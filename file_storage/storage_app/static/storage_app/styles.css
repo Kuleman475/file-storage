@@ -1,0 +1,17 @@
+body{
+    background-color: darkslategray;
+    text-align: center;
+    color: black;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button {
+    background-color: slateblue;
+    padding: 15px;
+    margin: 15px;
+    font-weight: bold;
+}

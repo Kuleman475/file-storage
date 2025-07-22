@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'storage_app/styles.css' %}">
     <title>File Storage Site</title>
 </head>
 <body>
     <h1>This is a simple Django-powered file storage web app.</h1>
     
-    {% if user.is_authenticated %}
-        <h2>Welcome, {{ user.username }}! You are logged in.</h2>
+{% if user.is_authenticated %}
+    <h2>Welcome, {{ user.username }}! You are logged in.</h2>
 
-        <button onclick="location.href='{% url 'logout' %}'">Logout of Account</button>
+    <button onclick="location.href='{% url 'logout' %}'">Logout of Account</button>
+    <button onclick="location.href='{% url 'upload' %}'">Upload Files</button>
 
-        <button onclick="   location.href='{% url 'upload' %}'">Upload Files</button>
+    <h3 class="files">Previously uploaded files</h3>
 
-        <h3 class="files">Previously uploaded files</h3>
-
-    <tr>
-        <th>Title</th>
-        <th>Uploaded By</th>
-        <th>File</th>
-        <th>Date</th>
-    </tr>
-    {% for f in files %}
-    <tr>
-        <td>{{ f.title }}</td>
-        <td>{{ f.user.username }}</td>
-        <td><a href="{{ f.file.url }}">Download</a></td>
-        <td>{{ f.uploaded_at }}</td>
-    </tr>
-    {% endfor %}
+    <table border="1" cellpadding="5" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Uploaded By</th>
+                <th>File</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for f in files %}
+            <tr>
+                <td>{{ f.title }}</td>
+                <td>{{ f.user.username }}</td>
+                <td><a href="{{ f.file.url }}">Download</a></td>
+                <td>{{ f.uploaded_at }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No files uploaded yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
         
     {% else %}
